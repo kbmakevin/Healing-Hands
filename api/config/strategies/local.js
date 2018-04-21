@@ -1,30 +1,29 @@
-// 2018.03.27 - 00:18:13 - add passport-local
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const Student = require('../../app/models/students.server.model');
+const User = require('../../app/models/users.server.model');
 
 // register the strategy
-passport.use(new LocalStrategy(
-    // 2018.03.27 - 10:26:52 - added local strategy options
-    // this is what passport is looking for when doing passport.authenticate method
-    {
-        usernameField: 'studentNumber',
-        passwordField: 'password'
-    },
-    function (studentNumber, password, done) {
-        // find a student with that studentNumber and authenticate it
-        Student.findOne({ studentNumber: studentNumber }, (err, student) => {
-            if (err) {
-                return done(err); //done is a Passport function
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+},
+    function (username, password, done) {
+        User.findOne({ email: username }, function (err, user) {
+            if (err) { return done(err); }
+            // Return if user not found in db
+            if (!user) {
+                return done(null, false, {
+                    message: 'User not found'
+                });
             }
-            if (!student) {
-                return done(null, false, { message: 'Unknown student' });
+            // Return if password is invalid
+            if (!user.validPassword(password)) {
+                return done(null, false, {
+                    message: 'Password is wrong'
+                });
             }
-            if (!student.authenticate(password)) {
-                return done(null, false, { message: 'Invalid password' });
-            }
-            return done(null, student);//student is authenticated
+            // If credentials are correct, return that user object
+            return done(null, user);
         })
-    }))
-
+    }
+));
 module.exports = passport;

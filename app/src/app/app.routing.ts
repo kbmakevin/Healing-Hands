@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     //     ]
     // },
     // { path: 'profile', redirectTo: 'students/details' },
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'profile' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -3,10 +3,11 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 // properties
-const secret = "MY_SECRET";
+const JWT_SECRET = "MY_SECRET";
+const USER_TYPES = ['nurse', 'patient'];
 
 const userSchema = mongoose.Schema({
-    // email seet to unique as we'll use it for the login credentials
+    // email set to unique as we'll use it for the login credentials
     email: {
         type: String,
         unique: true,
@@ -20,7 +21,18 @@ const userSchema = mongoose.Schema({
     // hash created by combining pw provided by user and the salt + applying one-way encryption
     hash: String,
     // string of chars unique to each user
-    salt: String
+    salt: String,
+    type: {
+        type: String,
+        enum: USER_TYPES,
+        default: 'patient'
+    },
+
+    // - vital signs(ref to other table)
+    // - motivations(ref to collection of other table)
+    // - authoredMotivations(ref to collection)
+    // - receivedEmergencyAlerts(ref to collection)
+    // - sentEergencyAlerts(ref to collection)
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -43,7 +55,7 @@ userSchema.methods.generateJwt = function () {
         email: this.email,
         name: this.name,
         exp: parseInt(expiry.getTime() / 1000),
-    }, secret);
+    }, JWT_SECRET);
 }
 
 module.exports = mongoose.model('Users', userSchema);

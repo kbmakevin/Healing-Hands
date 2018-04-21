@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
-import { StudentsModule } from './students/students.module';
-import { CoursesModule } from './courses/courses.module';
+// import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +15,8 @@ import { routing } from '../app/app.routing';
 import { AuthGuard } from './authentication/auth.guard';
 import { RoleGuard } from './authentication/role.guard';
 import { PersonalGuard } from './authentication/personal.guard';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,19 +24,20 @@ import { PersonalGuard } from './authentication/personal.guard';
     LoginComponent,
     HomeComponent,
     AlertComponent,
+    RegisterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    StudentsModule,
-    CoursesModule,
+    HttpClientModule,
+    // HttpModule,
     routing
   ],
   providers: [
     AuthGuard,
-    RoleGuard,
-    PersonalGuard,
+    // RoleGuard,
+    // PersonalGuard,
     AuthenticationService,
     AlertService
   ],

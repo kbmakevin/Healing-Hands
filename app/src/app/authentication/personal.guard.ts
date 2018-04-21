@@ -17,20 +17,20 @@ export class PersonalGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    // if user is admin, can do anything he wants, return true.
-    if (!this._authService.isAdmin()) {
-      // if the id param contained in the url does not match the authenticated student's id, restrict access
-      this._route.queryParams.subscribe(params => this._idParam = params['id']);
+    // // if user is admin, can do anything he wants, return true.
+    // if (!this._authService.isAdmin()) {
+    //   // if the id param contained in the url does not match the authenticated student's id, restrict access
+    //   this._route.queryParams.subscribe(params => this._idParam = params['id']);
 
-      if (this._idParam !== this._authService.getStudent()._id) {
+    //   if (this._idParam !== this._authService.getStudent()._id) {
 
-        this._alertService.error(`Unauthorized access!`, true);
-        this._router.navigate(['/students/details'],
-          { queryParams: { 'id': this._authService.getStudent()._id } });
+    //     this._alertService.error(`Unauthorized access!`, true);
+    //     this._router.navigate(['/students/details'],
+    //       { queryParams: { 'id': this._authService.getStudent()._id } });
 
-        return false;
-      }
-    }
+    //     return false;
+    //   }
+    // }
 
     return true;
   }

@@ -23,6 +23,7 @@ const passport = require('passport');
 // define the routes
 const studentRoutes = require('../app/routes/students.server.routes');
 const courseRoutes = require('../app/routes/courses.server.routes');
+const apiRoutes = require('../app/routes/index.server.routes');
 
 // create a new express app
 const app = express();
@@ -35,6 +36,7 @@ app.use(passport.initialize()); //bootstrapping the Passport module
 app.use(passport.session()); //keep track of your user's session
 
 // load the routing files
+app.use('/api', apiRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/courses', courseRoutes);
 

@@ -14,14 +14,14 @@ export class RoleGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (!this._authService.isAdmin()) {
-      this._alertService.error('This page is only accessible by the system administrator', true);
-      this._router.navigate(['/students/details'],
-        { queryParams: { 'id': this._authService.getStudent()._id } });
+    // if (!this._authService.isAdmin()) {
+    //   this._alertService.error('This page is only accessible by the system administrator', true);
+    //   this._router.navigate(['/students/details'],
+    //     { queryParams: { 'id': this._authService.getStudent()._id } });
 
-      // this._router.navigate(['/home']);
-      return false;
-    }
+    //   // this._router.navigate(['/home']);
+    //   return false;
+    // }
     return true;
   }
 }

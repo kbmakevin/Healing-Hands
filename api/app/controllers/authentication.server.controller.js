@@ -11,6 +11,7 @@ module.exports.register = function (req, res) {
     let user = new User();
     user.name = req.body.name;
     user.email = req.body.email;
+    user.type = req.body.type;
 
     user.setPassword(req.body.password);
 
@@ -25,6 +26,8 @@ module.exports.register = function (req, res) {
             "token": token
         });
     });
+
+    console.log(`New user registered: ${user}`);
 };
 
 module.exports.login = function (req, res) {

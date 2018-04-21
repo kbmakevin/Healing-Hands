@@ -27,12 +27,14 @@ const userSchema = mongoose.Schema({
         enum: USER_TYPES,
         default: 'patient'
     },
+    // FOR NURSES ONLY ------------------------------------------------
+    authoredMotivation: [{ type: mongoose.Schema.ObjectId, ref: 'Motivation' }],
+    receivedEmergencyAlerts: [{ type: mongoose.Schema.ObjectId, ref: 'EmergencyAlert' }],
 
-    // - vital signs(ref to other table)
-    // - motivations(ref to collection of other table)
-    // - authoredMotivations(ref to collection)
-    // - receivedEmergencyAlerts(ref to collection)
-    // - sentEergencyAlerts(ref to collection)
+    // FOR PATIENTS ONLY ----------------------------------------------
+    vitalSigns: [{ type: mongoose.Schema.ObjectId, ref: 'VitalSigns' }],
+    receivedMotivation: [{ type: mongoose.Schema.ObjectId, ref: 'Motivation' }],
+    sentEmergencyAlerts: [{ type: mongoose.Schema.ObjectId, ref: 'EmergencyAlert' }]
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -58,4 +60,4 @@ userSchema.methods.generateJwt = function () {
     }, JWT_SECRET);
 }
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('User', userSchema);

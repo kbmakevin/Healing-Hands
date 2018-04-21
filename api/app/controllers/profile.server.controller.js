@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../models/users.server.model');
+const User = require('../models/user.server.model');
 
 module.exports.profileRead = function (req, res) {
 

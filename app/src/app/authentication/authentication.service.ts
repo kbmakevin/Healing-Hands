@@ -8,6 +8,7 @@ export interface UserDetails {
   _id: string;
   email: string;
   name: string;
+  type: string;
   exp: number;
   iat: number;
 }
@@ -30,20 +31,20 @@ export class AuthenticationService {
   constructor(private _http: HttpClient, private _router: Router) { }
 
   private saveToken(token: string): void {
-    localStorage.setItem('mean-token', token);
+    localStorage.setItem('comp308-w2018-project-auth-token', token);
     this.token = token;
   }
 
   private getToken(): string {
     if (!this.token) {
-      this.token = localStorage.getItem('mean-token');
+      this.token = localStorage.getItem('comp308-w2018-project-auth-token');
     }
     return this.token;
   }
 
   public logout(): void {
     this.token = '';
-    window.localStorage.removeItem('mean-token');
+    window.localStorage.removeItem('comp308-w2018-project-auth-token');
     this._router.navigateByUrl('/');
   }
 
@@ -66,6 +67,16 @@ export class AuthenticationService {
     const user = this.getUserDetails();
     if (user) {
       return user.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  }
+
+  // nurses and patients have different privaleges in this system
+  public isNurse(): boolean {
+    const user = this.getUserDetails();
+    if (user) {
+      return user.type === 'nurse';
     } else {
       return false;
     }

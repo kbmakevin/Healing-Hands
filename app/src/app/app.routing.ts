@@ -2,8 +2,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './authentication/auth.guard';
-import { RoleGuard } from './authentication/role.guard';
-import { PersonalGuard } from './authentication/personal.guard';
+// import { RoleGuard } from './authentication/role.guard';
+// import { PersonalGuard } from './authentication/personal.guard';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -13,8 +13,8 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-    // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     // {
     //     path: 'students',
     //     component: StudentsComponent,
@@ -40,7 +40,8 @@ const appRoutes: Routes = [
     //     ]
     // },
     // { path: 'profile', redirectTo: 'students/details' },
-    { path: '**', redirectTo: 'profile' }
+    { path: '**', redirectTo: 'home' }
+    // { path: '**', redirectTo: 'profile' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

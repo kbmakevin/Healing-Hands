@@ -50,7 +50,7 @@
             <a routerLink="/login">Sign in</a>
         </li>
         <li *ngIf="authService.isLoggedIn()">
-            <a routerLink="/profile">{{ authService.getUserDetails()?.name }}</a>
+            <a routerLink="/profile">{{ authService.getUserDetails()?.type }} - {{ authService.getUserDetails()?.name }}</a>
         </li>
         <li *ngIf="authService.isLoggedIn()">
             <a (click)="authService.logout()">Logout</a>
@@ -84,7 +84,7 @@
         <!--Copyright-->
         <div class="footer-copyright py-3 text-center">
             © 2018 Copyright:
-            <a href="https://github.com/kbmakevin/comp308-w2018-asn3/"> KeVin Solutions </a>
+            <a href="https://github.com/kbmakevin/comp308-w2018-project"> KeVin Solutions </a>
         </div>
         <!--/.Copyright-->
 

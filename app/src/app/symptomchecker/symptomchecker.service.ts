@@ -1,0 +1,21 @@
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+@Injectable()
+export class SymptomcheckerService {
+  private _baseURL = '/api/users';
+
+  constructor(
+
+    private _http: HttpClient) { }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return Observable.throw(error.message || 'Server error');
+  }
+}

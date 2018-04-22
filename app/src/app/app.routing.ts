@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { SymptomcheckerComponent } from './symptomchecker/symptomchecker.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { RoleGuard } from './authentication/role.guard';
 // import { PersonalGuard } from './authentication/personal.guard';
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: DetailsComponent, canActivate: [AuthGuard] },
     { path: 'patients', component: ListComponent, canActivate: [AuthGuard, RoleGuard] },
+    { path: 'symptomchecker', component: SymptomcheckerComponent, canActivate: [AuthGuard] },
     // {
     //     path: 'students',
     //     component: StudentsComponent,

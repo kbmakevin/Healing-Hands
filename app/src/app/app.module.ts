@@ -15,6 +15,8 @@ import { AuthGuard } from './authentication/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { UserModule } from './user/user.module';
 import { RoleGuard } from './authentication/role.guard';
+import { SymptomcheckerComponent } from './symptomchecker/symptomchecker.component';
+import { SymptomcheckerService } from './symptomchecker/symptomchecker.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { RoleGuard } from './authentication/role.guard';
     HomeComponent,
     AlertComponent,
     RegisterComponent,
+    SymptomcheckerComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { RoleGuard } from './authentication/role.guard';
     RoleGuard,
     AuthGuard,
     AuthenticationService,
-    AlertService
+    AlertService,
+    SymptomcheckerService
   ],
   bootstrap: [AppComponent]
 })

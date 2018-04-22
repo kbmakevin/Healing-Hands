@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { AuthenticationService, TokenPayload } from '../authentication/authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { Router } from '@angular/router';
+import { User } from '../app.interface';
 
 @Component({
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-  credentials: TokenPayload = {
+  credentials: User = {
     email: '',
     name: '',
     password: '',
@@ -17,7 +18,7 @@ export class RegisterComponent {
 
   register() {
     this._authService.register(this.credentials).subscribe(() => {
-      this._router.navigateByUrl('/profile');
+      this._router.navigateByUrl('/home');
     }, (err) => {
       console.error(err);
     });

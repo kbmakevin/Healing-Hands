@@ -3,14 +3,14 @@ const router = express.Router();
 const jwt = require('express-jwt');
 const auth = jwt({
     secret: 'MY_SECRET',
+    // puts payload into the request for next middleware
     userProperty: 'payload'
 });
 
-const ctrlProfile = require('../controllers/profile.server.controller');
+const ctlrUser = require('../controllers/user.server.controller');
 const ctrlAuth = require('../controllers/authentication.server.controller');
 
-// profle
-router.get('/profile', auth, ctrlProfile.profileRead);
+router.get('/users/:id', ctlrUser.GetUserDetails);
 
 // authentication
 router.post('/register', ctrlAuth.register);

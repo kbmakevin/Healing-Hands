@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { AuthenticationService, TokenPayload } from '../authentication/authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
+import { User } from '../app.interface';
 
 @Component({
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  credentials: TokenPayload = {
+  credentials: User = {
     email: '',
     password: ''
   };
@@ -16,7 +17,7 @@ export class LoginComponent {
 
   login() {
     this._authService.login(this.credentials).subscribe(() => {
-      this._router.navigateByUrl('/profile');
+      this._router.navigateByUrl('/home');
     }, (err) => {
       this._alertService.error(err.error.message);
       console.error(err);

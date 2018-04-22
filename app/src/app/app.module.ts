@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -13,10 +12,9 @@ import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { routing } from '../app/app.routing';
 import { AuthGuard } from './authentication/auth.guard';
-import { RoleGuard } from './authentication/role.guard';
-import { PersonalGuard } from './authentication/personal.guard';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -31,13 +29,11 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    // HttpModule,
+    UserModule,
     routing
   ],
   providers: [
     AuthGuard,
-    // RoleGuard,
-    // PersonalGuard,
     AuthenticationService,
     AlertService
   ],

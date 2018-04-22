@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, UserDetails } from '../authentication/authentication.service';
+// import { AuthenticationService, UserDetails } from '../authentication/authentication.service';
 
 @Component({
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
-  details: UserDetails;
+  // details: UserDetails;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor() { }
+  // constructor(private _authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.auth.profile().subscribe(user => {
-      this.details = user;
-    }, (err) => {
-      console.error(err);
-    });
+    // depending on user nurse or patient, and if there is id in url, can do diff things
+    // this._authService.profile().subscribe(user => {
+    //   this.details = user;
+    // }, (err) => {
+    //   console.error(err);
+    // });
   }
 }

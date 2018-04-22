@@ -5,7 +5,8 @@ import { AuthGuard } from './authentication/auth.guard';
 // import { RoleGuard } from './authentication/role.guard';
 // import { PersonalGuard } from './authentication/personal.guard';
 import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile.component';
+// import { ProfileComponent } from './profile/profile.component';
+import { DetailsComponent } from './user/details/details.component';
 
 // 2018.03.30 - 12:34:17 - created app.routing for all routes in application
 
@@ -14,7 +15,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-    // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: DetailsComponent, canActivate: [AuthGuard] },
     // {
     //     path: 'students',
     //     component: StudentsComponent,

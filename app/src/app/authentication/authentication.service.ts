@@ -1,55 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Router } from '@angular/router';
-
-export interface UserDetails {
-  _id: string;
-  email: string;
-  name: string;
-  type: string;
-  exp: number;
-  iat: number;
-}
+import { User } from '../app.interface';
 
 interface TokenResponse {
   token: string;
 }
 
-export interface TokenPayload {
-  email: string;
-  password: string;
-  name?: string;
-  type?: string;
-}
-
 @Injectable()
 export class AuthenticationService {
-  private token: string;
+  private _token: string;
 
   constructor(private _http: HttpClient, private _router: Router) { }
 
-  private saveToken(token: string): void {
+  private _saveToken(token: string): void {
     localStorage.setItem('comp308-w2018-project-auth-token', token);
-    this.token = token;
+    this._token = token;
   }
 
-  private getToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('comp308-w2018-project-auth-token');
+  public getToken(): string {
+    if (!this._token) {
+      this._token = localStorage.getItem('comp308-w2018-project-auth-token');
     }
-    return this.token;
+    return this._token;
   }
 
   public logout(): void {
-    this.token = '';
+    this._token = '';
     window.localStorage.removeItem('comp308-w2018-project-auth-token');
     this._router.navigateByUrl('/');
   }
 
   // used to check validty of user's session
-  public getUserDetails(): UserDetails {
+  public getUser(): User {
     const token = this.getToken();
     let payload;
     if (token) {
@@ -64,7 +49,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    const user = this.getUserDetails();
+    const user = this.getUser();
     if (user) {
       return user.exp > Date.now() / 1000;
     } else {
@@ -74,7 +59,7 @@ export class AuthenticationService {
 
   // nurses and patients have different privaleges in this system
   public isNurse(): boolean {
-    const user = this.getUserDetails();
+    const user = this.getUser();
     if (user) {
       return user.type === 'nurse';
     } else {
@@ -82,32 +67,48 @@ export class AuthenticationService {
     }
   }
 
-  public register(user: TokenPayload): Observable<any> {
+  public register(user: User): Observable<any> {
     return this._request('post', 'register', user);
   }
 
-  public login(user: TokenPayload): Observable<any> {
+  public login(user: User): Observable<any> {
     return this._request('post', 'login', user);
   }
 
-  public profile(): Observable<any> {
-    return this._request('get', 'profile');
-  }
+  // public profile(): Observable<any> {
+  //   return this._request('get', 'profile');
+  // }
 
   // PRIVATE METHODS
-  private _request(method: 'post' | 'get', type: 'login' | 'register' | 'profile', user?: TokenPayload): Observable<any> {
+  private _request(method: 'post' | 'get', type: 'login' | 'register', user?: User): Observable<any> {
     let base;
+    // console.log(`ID: ${this.getUserDetails()._id} has logged in!`);
+
 
     if (method === 'post') {
       base = this._http.post(`/api/${type}`, user);
     } else {
+
+      // switch (type) {
+      //   case 'profile':
       base = this._http.get(`/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` } });
+      //   break;
+
+      // default:
+      //   break;
+      // }
+      // const params = new HttpParams()
+      //   .set('id', this.getUserDetails()._id);
+
+      // base = this._http.get(`/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }, params });
+      // base = this._http.get(`/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` } });
+      // base = this._http.get(`/api/${type}/${this.getUserDetails()._id}`, { headers: { Authorization: `Bearer ${this.getToken()}` } });
     }
 
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {
-          this.saveToken(data.token);
+          this._saveToken(data.token);
         }
         return data;
       })
@@ -117,55 +118,3 @@ export class AuthenticationService {
   }
 
 }
-
-// import { Injectable } from '@angular/core';
-// import { Http, Response, RequestOptions, Headers } from '@angular/http';
-// import { Observable } from 'rxjs/Observable';
-// import { Credentials } from '../interfaces/credentials';
-// import { Student } from '../interfaces/student';
-
-// @Injectable()
-// export class AuthenticationService {
-//   // public student;
-//   private _baseURL = '/api/students';
-//   private _student: Student;
-
-//   constructor(private _http: Http) { }
-
-//   isLoggedIn(): boolean {
-//     // return this.student;
-//     // console.log(`inside auth service checking if loggedin: ${sessionStorage.getItem('currentStudent') !== null}`);
-//     return sessionStorage.getItem('currentStudent') !== null;
-//   }
-
-//   isAdmin(): boolean {
-//     this._student = JSON.parse(sessionStorage.getItem('currentStudent'));
-//     return this._student.role === 'admin';
-//   }
-
-//   getStudent(): Student {
-//     return JSON.parse(sessionStorage.getItem('currentStudent'));
-//   }
-
-//   login(credentials: Credentials): Observable<any> {
-//     // perform a request with 'post' http method
-//     return this._http
-//       .post(this._baseURL + '/login', credentials)
-//       // .map(res => this.student = res.json())
-//       .map(res => {
-//         sessionStorage.setItem('currentStudent', res.text());
-//       })
-//       .catch(this._handleError);
-//   }
-
-//   // 2018.03.28 - 22:03:42
-//   logout() {
-//     // remove student from session storage to log user out
-//     sessionStorage.removeItem('currentStudent');
-//     // this.student = undefined;
-//   }
-
-//   private _handleError(error: Response) {
-//     return Observable.throw(error.json().message || 'Server error');
-//   }
-// }

@@ -44,7 +44,7 @@
                     <p class="card-text">This component of the system allows patients to manage all information stored in the system related to
                         him/herself such as history of vital signs from previous clinical visits, records of all emergency
                         alerts sent and motivational tips sent by nurses.</p>
-                    <a routerLink='/home' class="card-link btn btn-primary">Click to Continue</a>
+                    <a routerLink='/profile' [queryParams]="{id: user._id}" class="card-link btn btn-primary">Click to Continue</a>
                 </div>
             </div>
         </div>

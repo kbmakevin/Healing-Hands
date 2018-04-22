@@ -15,6 +15,12 @@ export class UserService {
     private _authService: AuthenticationService,
     private _http: HttpClient) { }
 
+  public listUsers(): Observable<any> {
+    return this._http
+      .get(this._baseURL)
+      .map(res => res)
+      .catch(this.handleError);
+  }
   public getUser(id: any): Observable<any> {
     return this._http
       .get(this._baseURL + '/' + id)

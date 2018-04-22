@@ -13,8 +13,8 @@ import { AlertService } from './alert/alert.service';
 import { routing } from '../app/app.routing';
 import { AuthGuard } from './authentication/auth.guard';
 import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile.component';
 import { UserModule } from './user/user.module';
+import { RoleGuard } from './authentication/role.guard';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { UserModule } from './user/user.module';
     HomeComponent,
     AlertComponent,
     RegisterComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +32,7 @@ import { UserModule } from './user/user.module';
     routing
   ],
   providers: [
+    RoleGuard,
     AuthGuard,
     AuthenticationService,
     AlertService

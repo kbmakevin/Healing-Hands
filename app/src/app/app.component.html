@@ -55,19 +55,23 @@
         <li *ngIf="authService.isLoggedIn()">
             <a (click)="authService.logout()">Logout</a>
         </li>
+        <li>
+            <a routerLink='/home'>Home</a>
+        </li>
     </ul>
-
-    <div class="jumbotron jumbotron-fluid" style="background-color:#555455;">
-        <!-- <h1> -->
-        <!-- {{ title }} -->
-        <!-- </h1> -->
-        <!-- <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> -->
-        <!-- <img alt="Enterprise Resource Planning Banner" src="../assets/erp-banner.png" height="100%;"> -->
-        <img alt="Centennial College Banner" src="../assets/cencol_banner.jpeg">
-        <!-- <br> -->
-        <!-- <a [routerLink]="['home']">Go Home</a>
+    <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#e3e7ea; height: 428px;"></div> -->
+    <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#555455;"> -->
+    <!-- <h1> -->
+    <!-- {{ title }} -->
+    <!-- </h1> -->
+    <!-- <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> -->
+    <!-- <img alt="Enterprise Resource Planning Banner" src="../assets/erp-banner.png" height="100%;"> -->
+    <!-- <img alt="Centennial College Banner" src="../assets/cencol_banner.jpeg"> -->
+    <img alt="Hospital Banner" src="../assets/app-banner.png" style="width:100%;">
+    <!-- <br> -->
+    <!-- <a [routerLink]="['home']">Go Home</a>
         <a [routerLink]="['students']" *ngIf="this.authService.isLoggedIn()">Student Management</a> -->
-    </div>
+    <!-- </div> -->
     <div class="container">
         <div class="panel panel-primary">
             <!-- allows displaying alert msgs from anywhere in the system -->

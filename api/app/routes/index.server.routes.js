@@ -10,6 +10,7 @@ const auth = jwt({
 const ctlrUser = require('../controllers/user.server.controller');
 const ctrlAuth = require('../controllers/authentication.server.controller');
 
+router.get('/users', ctlrUser.GetUsers);
 router.get('/users/:id', ctlrUser.GetUserDetails);
 
 // authentication

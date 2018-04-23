@@ -11,8 +11,8 @@
     </div>
     <div class="col-md-5">
       <select class="form-control" required [(ngModel)]="symptoms.coughing" name='type'>
-        <option value='Yes'>Yes</option>
-        <option value='No'>No</option>
+        <option value='yes'>Yes</option>
+        <option value='no'>No</option>
       </select>
     </div>
   </div>
@@ -24,8 +24,8 @@
     </div>
     <div class="col-md-5">
       <select class="form-control" required [(ngModel)]="symptoms.highFever" name='type'>
-        <option value='Yes'>Yes</option>
-        <option value='No'>No</option>
+        <option value='yes'>Yes</option>
+        <option value='no'>No</option>
       </select>
     </div>
   </div>
@@ -37,8 +37,8 @@
     </div>
     <div class="col-md-5">
       <select class="form-control" required [(ngModel)]="symptoms.sniffling" name='type'>
-        <option value='Yes'>Yes</option>
-        <option value='No'>No</option>
+        <option value='yes'>Yes</option>
+        <option value='no'>No</option>
       </select>
     </div>
   </div>
@@ -50,18 +50,9 @@
     </div>
     <div class="col-md-5">
       <select class="form-control" required [(ngModel)]="symptoms.aching" name='type'>
-        <option value='Yes'>Yes</option>
-        <option value='No'>No</option>>
+        <option value='yes'>Yes</option>
+        <option value='no'>No</option>>
       </select>
-    </div>
-  </div>
-
-  <div class=" form-group row">
-    <div class="col-4 text-right ">
-      <label>Days:</label>
-    </div>
-    <div class="col-md-5 ">
-      <input type="text" class="form-control " required [(ngModel)]="symptoms.days" name="emal">
     </div>
   </div>
 
@@ -84,8 +75,8 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ influenza }}</td>
-              <td>Doe</td>
+              <td>{{ possibleCondition.condition }}</td>
+              <td>{{ possibleCondition.attn }}</td>
             </tr>
           </tbody>
         </table>

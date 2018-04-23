@@ -1,51 +1,72 @@
-const mongoose = require('mongoose');
-const ml = require('machine_learning');
+//http://joonku.com/project/machine_learning/apidoc#decision_tree
+//load machine_learning module
+let ml = require('machine_learning');
 
-module.exports.checkConditions = function (req, res) {
-
+// Create a new 'render' controller method
+ exports.checkConditions = function (req, res) {
+// module.exports.checkConditions = function (req, res) {
+    //read the new data
     let coughing = req.body.coughing;
-    console.log(req.body);
-
+    console.log(coughing);
     let highFever = req.body.highFever;
+    console.log(highFever);
     let sniffling = req.body.sniffling;
+    console.log(sniffling);
     let aching = req.body.aching;
-    let days = req.body.days;
+    console.log(aching);
 
     let data = [
-        ['no','no','no','no',5],
-        ['no','no','no','yes', 10],
-        ['no','no','yes', 'no', 15],
-        ['no','no','yes', 'yes', 20],
-        ['no','yes','no','no',25],
-        ['no','yes','no','yes', 6],
-        ['no','yes','yes','no', 7],
-        ['no','yes','yes','yes', 8],
-        ['yes','no','no','no',9],
-        ['yes','no','no','yes',10], // 10
-        ['yes','no','yes','no',3],
-        ['yes','no','yes','yes',12],
-        ['yes','yes','no','no',13],
-        ['yes','yes','no','yes',23],
-        ['yes','yes','yes','no',15],
-        ['yes','yes','yes','yes',16]
+        ['no','no','no','no'],
+        ['no','no','no','yes'],
+        ['no','no','yes', 'no'],
+        ['no','no','yes', 'yes'],
+        ['no','yes','no','no'],
+        ['no','yes','no','yes'],
+        ['no','yes','yes','no'],
+        ['no','yes','yes','yes'],
+        ['yes','no','no','no'],
+        ['yes','no','no','yes'], // 10
+        ['yes','no','yes','no'], // 11
+        ['yes','no','yes','yes'],
+        ['yes','yes','no','no'],
+        ['yes','yes','no','yes'],
+        ['yes','yes','yes','no'],
+        ['yes','yes','yes','yes']
     ];
-    
-    let result = ['none', 'none', 'none', 'C', 'none', 'none', 'B', 'B', 'none', 'C', 'B', 'A', 'B', 'B', 'A', 'A'];
+    //decison made
+    let result = ['Common cold', 'Common cold','Common cold', 'Acute Sinusitis', 'None', 'Common cold', 'Bacterial Pneumonia', 
+                'West Nile Virus', 'Whooping Cough', 'Bacterial Pneumonia', 'Laryngitis', 'Chronic sinusitis', 'Viral Pneumonia', 'Asthma', 'Tonsillitis', 'Erythema multiforme'];
 
+    //create new Decision Tree using this dataset
     let dt = new ml.DecisionTree({
         data: data,
         result: result
     });
+
     dt.build();
 
-    console.log("---------------------");
-    console.log(dt.classify([coughing, highFever, sniffling, aching]));
-    var classificationResult = dt.classify([coughing, highFever, sniffling, aching, days]);
+    console.log("Classify : ", dt.classify([coughing, highFever, sniffling, aching]));
+    let classificationResult = dt.classify([coughing, highFever, sniffling, aching]);
+    let tree = dt.getTree(); 
+    dt.prune(1.0); // 1.0 : mingain.
 
+    let classsification = JSON.stringify(classificationResult);
+    let classResult = classsification.substring(2, classsification.length - 4);
 
-    var tree = dt.getTree();
+    let medicalAttention = '';
 
-    dt.prune(1.0);
-    return res.status(200).json(JSON.stringify(classificationResult));
-}
+    if(classResult ===  "Common cold" || classResult ===  "None" || classResult ===  "Whooping Cough" || classResult ===  "Acute Sinusitis") {
+        medicalAttention = 'No';
+    } else {
+        medicalAttention = "Yes";
+    }
+
+    let obj = {
+        condition: classResult,
+        attn: medicalAttention
+    };
+
+    return res.status(200).json(obj);
+};
+
 

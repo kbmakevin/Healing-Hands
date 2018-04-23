@@ -16,9 +16,10 @@ export class SymptomcheckerComponent implements OnInit {
     sniffling: '',
     aching: '',
     coughing: '',
-    highFever: '',
-    days: ''
+    highFever: ''
   };
+
+  possibleCondition = {};
 
   influenza: String = '';
   constructor(private authService: AuthenticationService, private sympService: SymptomcheckerService) {
@@ -32,8 +33,7 @@ export class SymptomcheckerComponent implements OnInit {
   checksymptoms() {
     this.sympService.getMedicalConditions(this.symptoms).subscribe((res) => {
       this.results = true;
-      this.influenza = res;
-      console.log(res);
+      this.possibleCondition = res;
     }, (err) => {
       console.error(err);
     });

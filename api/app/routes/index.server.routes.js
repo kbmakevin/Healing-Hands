@@ -9,9 +9,13 @@ const auth = jwt({
 
 const ctlrUser = require('../controllers/user.server.controller');
 const ctrlAuth = require('../controllers/authentication.server.controller');
+const symptoms = require('../controllers/symptomchecker.server.controller');
 
 router.get('/users', ctlrUser.GetUsers);
 router.get('/users/:id', ctlrUser.GetUserDetails);
+
+// check symptoms and generate possible conditions
+router.post('/symptomchecker', symptoms.checkConditions);
 
 // authentication
 router.post('/register', ctrlAuth.register);

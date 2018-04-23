@@ -11,12 +11,32 @@ import { User } from '../app.interface';
 export class SymptomcheckerComponent implements OnInit {
   title = 'Symptom Checker Component';
   user: User;
-  constructor(
-    public authService: AuthenticationService) {
+  results: boolean = false;
+  symptoms = {
+    sniffling: '',
+    aching: '',
+    coughing: '',
+    highFever: '',
+    days: ''
+  };
+
+  influenza: String = '';
+  constructor(private authService: AuthenticationService, private sympService: SymptomcheckerService) {
+      this.results = false;
     this.user = this.authService.getUser();
   }
 
   ngOnInit() {
+  }
+
+  checksymptoms() {
+    this.sympService.getMedicalConditions(this.symptoms).subscribe((res) => {
+      this.results = true;
+      this.influenza = res;
+      console.log(res);
+    }, (err) => {
+      console.error(err);
+    });
   }
 
 }

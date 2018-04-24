@@ -35,6 +35,49 @@ module.exports.GetUserDetails = function (req, res, next) {
         });
 };
 
+module.exports.EnterVitalSigns = function (req, res, next) {
+    // console.log('req body: ', req.body);
+
+    let vitalSigns = new VitalSigns();
+    vitalSigns.bodyTemperature = req.body.bodyTemperature;
+    vitalSigns.pulseRate = req.body.pulseRate;
+    vitalSigns.repirationRate = req.body.repirationRate;
+    vitalSigns.bloodPressure = req.body.bloodPressure;
+    vitalSigns.comments = req.body.comments;
+    vitalSigns.patient = req.body.patient;
+    vitalSigns.recorder = req.body.recorder;
+
+    // console.log('vitalsigns doc', vitalSigns);
+
+    // User.findByIdAndUpdate(vitalSigns.recorder,
+    //     { $push: { authoredMotivation: vitalSigns._id } },
+    //     { new: true },
+    //     (err, updatedUser) => {
+    //         if (err) {
+    //             return res.status(400).send('Could not update Recorder\'s details');
+    //         } else {
+    User.findByIdAndUpdate(vitalSigns.patient,
+        { $push: { vitalSigns: vitalSigns._id } },
+        { new: true },
+        (err, updatedPatient) => {
+            if (err) {
+                return res.status(400).send('Could not update Patient details');
+            } else {
+                vitalSigns.save((err) => {
+                    if (err) {
+                        return res.status(400).send('Could not save VitalSigns details');
+                    } else {
+                        return res.status(200).json(vitalSigns);
+                    }
+                })
+            }
+        }
+
+    )
+    //     }
+    // })
+}
+
 // NURSE FUNCTIONS ++++++++++++++++++++++++++++++
 // create new motivation document
 // push ref to patient 
@@ -76,45 +119,6 @@ module.exports.SendMotivation = function (req, res, next) {
                 )
             }
         });
-};
-
-
-module.exports.submitEmergencyAlert = function (req, res, next) {
-    let emergency = new EmergencyAlert();
-    emergency.sender = req.body.sender;
-    emergency.receiver = req.body.receiver;
-    emergency.message = req.body.message;
-    console.log(Date.now);
-
-    User.findByIdAndUpdate(emergency.sender,
-        { $push: { sentEmergencyAlerts: emergency._id } },
-        { new: true },
-        (err, updatedPatient) => {
-            if (err) {
-                return res.status(400).send('Could not update Patient details');
-            } else {
-                console.log('Detials saved');
-                User.findByIdAndUpdate(emergency.receiver,
-                    { $push: { receivedEmergencyAlerts: emergency._id } },
-                    { new: true },
-                    (err, updatedNurse) => {
-                        if (err) {
-                            return res.status(400).send('Could not update Nurse details');
-                        } else {
-                            emergency.save((err) => {
-                                if (err) {
-                                    return res.status(400).send('Could not save Emergency alert details');
-                                } else {
-                                    return res.status(200).json(emergency);
-                                }
-                            })
-                        }
-                    }
-
-                )
-            }
-        });
-
 };
 
 // PATIENT FUNCTIONS ++++++++++++++++++++++++++++

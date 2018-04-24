@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { UserService } from '../../user.service';
-import { User, Motivation } from '../../app.interface';
+import { User, Motivation, VitalSigns } from '../../app.interface';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from '../../alert/alert.service';
 
@@ -20,8 +20,22 @@ export class PatientsDetailsComponent implements OnInit {
     patient: undefined,
     message: '',
     type: ''
-
   };
+
+  showAddVitalSignsForm: Boolean;
+  createdVitalSigns: VitalSigns = {
+    bodyTemperature: undefined,
+    pulseRate: undefined,
+    repirationRate: undefined,
+    bloodPressure: {
+      systolic: undefined,
+      diastolic: undefined
+    },
+    comments: undefined,
+    patient: undefined,
+    recorder: undefined
+  };
+
   // used only if nurse is viewing this page
   nurseHasMotivatedPatient: Boolean;
   constructor(
@@ -40,21 +54,14 @@ export class PatientsDetailsComponent implements OnInit {
 
     this._userService
       .getUser(this.patientId)
-      // .getUser(this._authService.getUser()._id)
       .subscribe((res) => {
         this.patient = res;
-        // if (this._authService.isAdmin()) {
-        //   // 2018.03.31 - 20:43:40 - every profile belongs to admin :)
-        //   this.isMyProfile = true;
-        // } else {
-        //   // 2018.03.31 - 20:42:17 - student can only update THEIR OWN profile
-        //   this.isMyProfile = this._authService.getStudent()._id === this.studentId;
-        //
+
         if (this.authService.isNurse()) {
           this.nurseHasMotivatedPatient = false;
           for (let index = 0; index < this.patient.receivedMotivation.length; index++) {
-            console.log('author:', this.patient.receivedMotivation[index].author);
-            console.log('auth nurse id:', this.authService.getUser()._id);
+            // console.log('author:', this.patient.receivedMotivation[index].author);
+            // console.log('auth nurse id:', this.authService.getUser()._id);
             if ('' + (this.patient.receivedMotivation[index].author) === this.authService.getUser()._id) {
               // console.log('i authored this!');
               this.nurseHasMotivatedPatient = true;
@@ -67,6 +74,11 @@ export class PatientsDetailsComponent implements OnInit {
   toggleAddMotivationForm() {
     this.showAddMotivationForm = !this.showAddMotivationForm;
   }
+
+  toggleAddVitalSignsForm() {
+    this.showAddVitalSignsForm = !this.showAddVitalSignsForm;
+  }
+
 
   sendMotivation(motivationMsg: any, motivationType: any) {
     this.createdMotivation.author = this.authService.getUser();
@@ -84,11 +96,27 @@ export class PatientsDetailsComponent implements OnInit {
     } else {
       this._userService.sendMotivation(this.createdMotivation).subscribe(data => {
         this._alertService.success(`Motivation has been sent to ${this.createdMotivation.patient.name}`, false);
+        location.reload();
       },
         err => {
           this._alertService.error(err.message);
           console.log(err);
         });
     }
+  }
+
+  enterVitalSigns() {
+    this.createdVitalSigns.recorder = this.authService.getUser();
+    this.createdVitalSigns.patient = this.patient;
+    // console.log('createdvitalsigns', this.createdVitalSigns);
+
+    this._userService.enterVitalSigns(this.createdVitalSigns).subscribe(data => {
+      this._alertService.success(`Vital Signs have been entered for ${this.createdVitalSigns.patient.name}`, false);
+      location.reload();
+    },
+      err => {
+        this._alertService.error(err.message);
+        console.log(err);
+      });
   }
 }

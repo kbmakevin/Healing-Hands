@@ -15,6 +15,7 @@ router.get('/users/:id', ctlrUser.GetUserDetails);
 
 router.post('/motivations', ctlrUser.SendMotivation);
 
+router.post('/vitalSigns', ctlrUser.EnterVitalSigns);
 
 // authentication
 router.post('/register', ctrlAuth.register);

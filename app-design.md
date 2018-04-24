@@ -1,13 +1,15 @@
 # WEB-APP DESIGN
 ## app module
 - alert
-- home
+- home- register
+- login
 - app.routing
 - emergency-alerts (diff view rendered dependent on user.type)
+- symptom-checke
+- symptom-checker.service
+- user.service
 
 ## authentication module
-- register
-- login
 - authentication.service
 - auth.guard
 - role.guard
@@ -16,8 +18,6 @@
 - patients-list
 - patients-details
 - patient-motivations (patients can see motivation sent by ANY nurse)
-- patients-service
-- nurses-service
 ---
     patients-list (only accessible by nurses)
         list all patients in tabular format

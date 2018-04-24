@@ -13,6 +13,9 @@ const ctrlAuth = require('../controllers/authentication.server.controller');
 router.get('/users', ctlrUser.GetUsers);
 router.get('/users/:id', ctlrUser.GetUserDetails);
 
+router.post('/motivations', ctlrUser.SendMotivation);
+
+
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);

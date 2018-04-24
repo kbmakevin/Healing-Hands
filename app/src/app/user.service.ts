@@ -6,10 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Motivation } from './app.interface';
 
 @Injectable()
 export class UserService {
-  private _baseURL = '/api/users';
+  private _usersBaseURL = '/api/users';
+  private _motivationBaseURL = '/api/motivations';
 
   constructor(
     private _authService: AuthenticationService,
@@ -17,13 +19,13 @@ export class UserService {
 
   public listUsers(): Observable<any> {
     return this._http
-      .get(this._baseURL)
+      .get(this._usersBaseURL)
       .map(res => res)
       .catch(this.handleError);
   }
   public getUser(id: any): Observable<any> {
     return this._http
-      .get(this._baseURL + '/' + id)
+      .get(this._usersBaseURL + '/' + id)
       // .map((res: Response) => res.json())
       .map(res => res)
       .catch(this.handleError);
@@ -32,6 +34,12 @@ export class UserService {
   // NURSE FUNCTIONALITIES
   // CRUD motivation
   // prioritize create first
+  public sendMotivation(motivation: Motivation): Observable<any> {
+    return this._http
+      .post(this._motivationBaseURL, motivation)
+      .map(res => res)
+      .catch(this.handleError);
+  }
 
   // PATIENT FUNCTIONALITIES
   // Read motivation

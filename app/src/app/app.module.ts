@@ -12,6 +12,7 @@ import { routing } from '../app/app.routing';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PatientsModule } from './patients/patients.module';
 import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.component';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.co
     routing
   ],
   providers: [
-    AlertService
+    AlertService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -17,70 +17,86 @@
   </div>
 </div>
 
-<!-- Motivation sent by nurses -->
-<!-- can add motivation if user is a nurse -->
-<h3>Motivation From the Lovely Nurses</h3>
-<div class="row justify-content-center" *ngIf='this.authService.isNurse()'>
-  <button (click)="toggleAddMotivationForm()" class="btn btn-outline-success" [disabled]='this.showAddMotivationForm'>
-    <i class="fa fa-heart "></i> Send Motivation!</button>
-</div>
-<div *ngIf='this.showAddMotivationForm' style="margin-top:20px;">
-
-  <form #f='ngForm' [ngClass]="{'was-validated': f.submitted}" (ngSubmit)="f.form.valid && sendMotivation(motivationMsg, motivationType)"
-    novalidate>
-
-    <!-- Type of Motivation -->
-    <div class="form-group row">
-      <div class="col-4 text-right ">
-        <label>Type of Motivation:</label>
-      </div>
-      <div class="col-md-5">
-        <select class="form-control" required name='type' #motivationType>
-          <!-- <select class="form-control" required [(ngModel)]="createdMotivation.type" name='type'> -->
-          <option value='string'>String</option>
-          <option value='url'>Url</option>
-        </select>
-        <div class="invalid-feedback text-left">Type of Motivation is required!</div>
-      </div>
-    </div>
-
-    <!-- Message -->
-    <div class=" form-group row">
-      <div class="col-4 text-right ">
-        <label>Message:</label>
-      </div>
-      <div class="col-md-5 ">
-        <input type="text" class="form-control " required name="message" placeholder="Enter your motivational message or link" #motivationMsg>
-        <!-- <input type="text" class="form-control " required [(ngModel)]="createdMotivation.message" name="message" placeholder="Enter your motivational message or link"> -->
-        <div class="invalid-feedback text-left">A motivational message or link to a motivational video or game is required!</div>
-      </div>
-    </div>
-
-    <!-- Buttons -->
-    <button type="submit " class="btn btn-outline-success">
-      <i class="fa fa-paper-plane-o "></i> Send
-    </button>
-    <button (click)="toggleAddMotivationForm()" class="btn btn-outline-danger">Cancel</button>
-  </form>
-</div>
-<div class="row justify-content-center" *ngIf='this.patient?.receivedMotivation.length==0'>
-  <p>This is a new patient. There are currently no motivational tips sent by nurses...</p>
-</div>
-
-<div class="row justify-content-center" *ngIf='this.patient?.receivedMotivation.length>0'>
-  <div class="col-md-7">
-    <table class="table" align="center">
-      <tbody>
-        <tr>
-          <td>
-            <b>Full Name</b>: {{ patient?.name }}</td>
-          <td style="padding-left: 40px">
-            <b>Email</b>: {{ patient?.email }}</td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Motivation span -->
+<span *ngIf='this.authService.isNurse()'>
+  <!-- Motivation sent by nurses -->
+  <!-- can add motivation if user is a nurse -->
+  <h3>Motivation you Sent to this Patient</h3>
+  <div class="row justify-content-center" *ngIf='this.authService.isNurse()'>
+    <button (click)="toggleAddMotivationForm()" class="btn btn-outline-success" [disabled]='this.showAddMotivationForm'>
+      <i class="fa fa-heart "></i> Send Motivation!</button>
   </div>
-</div>
+  <div *ngIf='this.showAddMotivationForm' style="margin-top:20px;">
+
+    <form #f='ngForm' [ngClass]="{'was-validated': f.submitted}" (ngSubmit)="f.form.valid && sendMotivation(motivationMsg, motivationType)"
+      novalidate>
+
+      <!-- Type of Motivation -->
+      <div class="form-group row">
+        <div class="col-4 text-right ">
+          <label>Type of Motivation:</label>
+        </div>
+        <div class="col-md-5">
+          <select class="form-control" required name='type' #motivationType>
+            <!-- <select class="form-control" required [(ngModel)]="createdMotivation.type" name='type'> -->
+            <option value='string'>String</option>
+            <option value='url'>Url</option>
+          </select>
+          <div class="invalid-feedback text-left">Type of Motivation is required!</div>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class=" form-group row">
+        <div class="col-4 text-right ">
+          <label>Message:</label>
+        </div>
+        <div class="col-md-5 ">
+          <input type="text" class="form-control " required name="message" placeholder="Enter your motivational message or link" #motivationMsg>
+          <!-- <input type="text" class="form-control " required [(ngModel)]="createdMotivation.message" name="message" placeholder="Enter your motivational message or link"> -->
+          <div class="invalid-feedback text-left">A motivational message or link to a motivational video or game is required!</div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <button type="submit " class="btn btn-outline-success">
+        <i class="fa fa-paper-plane-o "></i> Send
+      </button>
+      <button (click)="toggleAddMotivationForm()" class="btn btn-outline-danger">Cancel</button>
+    </form>
+  </div>
+  <!-- end toggleable motivation insert form -->
+
+  <div style="margin-top: 24px;"></div>
+
+  <div class="row justify-content-center" *ngIf='!this.nurseHasMotivatedPatient'>
+    <!-- <div class="row justify-content-center" *ngIf='this.patient?.receivedMotivation.length==0'> -->
+    <p>You have not sent any motivation to this patient yet...</p>
+  </div>
+
+  <div class="row justify-content-center" *ngIf='nurseHasMotivatedPatient'>
+    <!-- <div class="row justify-content-center" *ngIf='this.patient?.receivedMotivation.length>0'> -->
+    <div class="col-md-7">
+      <table class="table" align="center">
+        <thead class='thead-dark'>
+          <tr>
+            <th scope='col'>Email</th>
+            <th scope='col'>Full Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let receivedMotivation of this.patient?.receivedMotivation'>
+            <td>{{receivedMotivation.type}}</td>
+            <td>{{receivedMotivation.message}}</td>
+            <td>{{receivedMotivation.dateRecorded | date:'medium'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</span>
+<!-- end motivation span -->
 
 <!-- Recorded Vital Signs from Previous Clinical Visits -->
 <h3>History of Vital Signs</h3>
@@ -89,27 +105,6 @@
 </div>
 
 <div class="row justify-content-center" *ngIf='this.patient?.vitalSigns.length>0'>
-  <div class="col-md-7">
-    <table class="table" align="center">
-      <tbody>
-        <tr>
-          <td>
-            <b>Full Name</b>: {{ patient?.name }}</td>
-          <td style="padding-left: 40px">
-            <b>Email</b>: {{ patient?.email }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Record of Emergency Alerts Sent -->
-<h3>Emergency Alerts</h3>
-<div class="row justify-content-center" *ngIf='this.patient?.sentEmergencyAlerts.length==0'>
-  <p>This is a new patient. There are currently emergency alerts sent...</p>
-</div>
-
-<div class="row justify-content-center" *ngIf='this.patient?.sentEmergencyAlerts.length>0'>
   <div class="col-md-7">
     <table class="table" align="center">
       <tbody>

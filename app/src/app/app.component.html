@@ -19,10 +19,10 @@
                     <a class="nav-link" routerLink='/profile' [queryParams]="{id: authService.getUser()._id}" routerLinkActive='active'>Profile</a>
                 </li>
                 <li class="nav-item" *ngIf='this.authService.isLoggedIn()'>
-                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Emergency Alerts</a>
+                    <a class="nav-link" routerLink='/emergency' routerLinkActive='active'>Emergency Alerts</a>
                 </li>
                 <li class="nav-item" *ngIf='this.authService.isLoggedIn() && !this.authService.isNurse()'>
-                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Motivation</a>
+                    <a class="nav-link" routerLink='/motivation' routerLinkActive='active'>Motivation</a>
                 </li>
                 <li class="nav-item" *ngIf='this.authService.isLoggedIn() && !this.authService.isNurse()'>
                     <a class="nav-link" routerLink='/home' routerLinkActive='active'>Super Smart Tool </a>

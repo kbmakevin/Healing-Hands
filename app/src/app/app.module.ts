@@ -13,6 +13,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { PatientsModule } from './patients/patients.module';
 import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.component';
 import { UserService } from './user.service';
+import { EmergencyAlertsService } from './emergency-alerts/emergency-alerts.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserService } from './user.service';
   ],
   providers: [
     AlertService,
-    UserService
+    UserService,
+    EmergencyAlertsService
   ],
   bootstrap: [AppComponent]
 })

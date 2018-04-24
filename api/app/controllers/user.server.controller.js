@@ -25,7 +25,10 @@ module.exports.GetUserDetails = function (req, res, next) {
         { _id: id },
         '-hash -salt'
     )
-        .populate('authoredMotivation receivedEmergencyAlerts vitalSigns receivedMotivation sentEmergencyAlerts')
+        .populate({
+            path: 'authoredMotivation receivedEmergencyAlerts vitalSigns receivedMotivation sentEmergencyAlerts',
+            populate: 'author'
+        })
         .exec((err, user) => {
             if (err) {
                 return res.status(400).send({ message: err });

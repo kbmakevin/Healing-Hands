@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../authentication/authentication.service';
+import { UserService } from '../../user.service';
+import { User } from '../../app.interface';
 
 @Component({
   selector: 'app-patients-motivations',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientsMotivationsComponent implements OnInit {
 
-  constructor() { }
+  patient: User;
+  constructor(
+    public authService: AuthenticationService,
+    private _userService: UserService) {
 
+  }
   ngOnInit() {
+    this._userService
+      .getUser(this.authService.getUser()._id)
+      .subscribe((res) => {
+        this.patient = res;
+        console.log(this.patient);
+      });
   }
 
 }

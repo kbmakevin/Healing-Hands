@@ -5,7 +5,7 @@
 - login
 - app.routing
 - emergency-alerts (diff view rendered dependent on user.type)
-- symptom-checke
+- symptom-checker
 - symptom-checker.service
 - user.service
 

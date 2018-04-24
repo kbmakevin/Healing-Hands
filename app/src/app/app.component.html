@@ -1,9 +1,8 @@
 <div class="container-fluid text-center">
-    <!-- 
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a routerLink="/home" class="navbar-brand">Centennial College</a>
-        <span *ngIf='this.authService.isLoggedIn()'>
-            Logged in as {{this.authService.getStudent().firstName}} (#{{this.authService.getStudent().studentNumber}})
+        <a routerLink="/home" class="navbar-brand">Healing Hands</a>
+        <span *ngIf='this.authService.isLoggedIn()'>Logged in as {{this.authService.getUser().name}} ({{this.authService.getUser().type}})
         </span>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -14,64 +13,41 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" *ngIf='this.authService.isLoggedIn()'>
-                    <a class="nav-link" routerLink='/home' routerLinkActive='active' *ngIf='this.authService.isAdmin()'>Home </a>
-                    <a class="nav-link" routerLink='/home' routerLinkActive='active' *ngIf='!this.authService.isAdmin()'>My Profile </a>
+                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Home</a>
                 </li>
-                <li class="nav-item dropdown" *ngIf='this.authService.isLoggedIn()'>
+                <li class="nav-item" *ngIf='this.authService.isLoggedIn()'>
+                    <a class="nav-link" routerLink='/profile' [queryParams]="{id: authService.getUser()._id}" routerLinkActive='active'>Profile</a>
+                </li>
+                <li class="nav-item" *ngIf='this.authService.isLoggedIn()'>
+                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Emergency Alerts</a>
+                </li>
+                <li class="nav-item" *ngIf='this.authService.isLoggedIn() && !this.authService.isNurse()'>
+                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Motivation</a>
+                </li>
+                <li class="nav-item" *ngIf='this.authService.isLoggedIn() && !this.authService.isNurse()'>
+                    <a class="nav-link" routerLink='/home' routerLinkActive='active'>Super Smart Tool </a>
+                </li>
+                <li class="nav-item dropdown" *ngIf='this.authService.isLoggedIn() && this.authService.isNurse()'>
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Student Management
+                        Patients Management
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" routerLink='/students'>List All Students</a>
-                        <a class="dropdown-item" routerLink='/students/create' *ngIf='this.authService.isAdmin()'>Create New Student</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown" *ngIf='this.authService.isLoggedIn()'>
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Course Management
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" routerLink='/courses'>List All Courses</a>
-                        <a class="dropdown-item" routerLink='/courses/create' *ngIf='this.authService.isAdmin()'>Create New Course</a>
+                        <a class="dropdown-item" routerLink='/patients'>List All Patients</a>
                     </div>
                 </li>
                 <li class="nav-item" *ngIf='!this.authService.isLoggedIn()'>
                     <a class="nav-link" routerLink='/login' routerLinkActive='active'>Login</a>
                 </li>
                 <li class="nav-item" *ngIf='this.authService.isLoggedIn()'>
-                    <a class="nav-link" routerLink='/login'>Logout</a>
+                    <a class="nav-link" (click)="authService.logout()">Logout</a>
                 </li>
             </ul>
         </div>
-    </nav> -->
+    </nav>
 
-    <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!authService.isLoggedIn()">
-            <a routerLink="/login">Sign in</a>
-        </li>
-        <li *ngIf="authService.isLoggedIn()">
-            <a routerLink="/profile" [queryParams]="{id: authService.getUser()._id}">{{ authService.getUser()?.type }} - {{ authService.getUser()?.name }}</a>
-        </li>
-        <li *ngIf="authService.isLoggedIn()">
-            <a (click)="authService.logout()">Logout</a>
-        </li>
-        <li>
-            <a routerLink='/home'>Home</a>
-        </li>
-    </ul>
-    <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#e3e7ea; height: 428px;"></div> -->
-    <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#555455;"> -->
-    <!-- <h1> -->
-    <!-- {{ title }} -->
-    <!-- </h1> -->
-    <!-- <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> -->
-    <!-- <img alt="Enterprise Resource Planning Banner" src="../assets/erp-banner.png" height="100%;"> -->
-    <!-- <img alt="Centennial College Banner" src="../assets/cencol_banner.jpeg"> -->
     <img alt="Hospital Banner" src="../assets/app-banner.png" style="width:100%;">
-    <!-- <br> -->
-    <!-- <a [routerLink]="['home']">Go Home</a>
-        <a [routerLink]="['students']" *ngIf="this.authService.isLoggedIn()">Student Management</a> -->
-    <!-- </div> -->
+    <div style="margin-bottom: 24px;"></div>
+
     <div class="container">
         <div class="panel panel-primary">
             <!-- allows displaying alert msgs from anywhere in the system -->
@@ -80,7 +56,6 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-
 
     <!--Footer-->
     <footer class="page-footer font-small blue pt-4 mt-4">

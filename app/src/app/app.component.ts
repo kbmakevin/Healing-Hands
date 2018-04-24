@@ -7,6 +7,5 @@ import { AuthenticationService } from './authentication/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // title = 'Centennial College';
   constructor(public authService: AuthenticationService) { }
 }

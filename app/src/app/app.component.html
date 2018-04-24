@@ -58,6 +58,9 @@
         <li>
             <a routerLink='/home'>Home</a>
         </li>
+        <li *ngIf="authService.isLoggedIn()">
+            <a routerLink='/emergency'>Emergency Alerts</a>
+        </li>
     </ul>
     <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#e3e7ea; height: 428px;"></div> -->
     <!-- <div class="jumbotron jumbotron-fluid" style="background-color:#555455;"> -->

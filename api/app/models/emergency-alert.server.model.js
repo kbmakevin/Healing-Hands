@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const emergencyAlertSchema = mongoose.Schema({
     sender: { type: mongoose.Schema.ObjectId, ref: 'User' },
     receiver: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    message: { type: String, required: true }
+    message: { type: String, required: true },
+    dateRecorded: { type:Date, default: Date.now }
 });
 
 module.exports = mongoose.model('EmergencyAlert', emergencyAlertSchema);

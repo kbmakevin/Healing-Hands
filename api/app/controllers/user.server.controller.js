@@ -18,6 +18,19 @@ module.exports.GetUsers = function (req, res, next) {
     )
 }
 
+/*module.exports.GetNurses = function(req, res) {
+    User.find({type:"nurse"},
+        '-hash -salt',
+        (err, nurses) => {
+            if (err) {
+                return res.status(400).send({ message: err });
+            }
+            console.log('Get List of Users:', nurses);
+            return res.status(200).json(nurses);
+        }
+    )
+}*/
+
 module.exports.GetUserDetails = function (req, res, next) {
     let id = req.params.id;
 

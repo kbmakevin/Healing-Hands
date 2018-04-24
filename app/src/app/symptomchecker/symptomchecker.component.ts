@@ -24,7 +24,7 @@ export class SymptomcheckerComponent implements OnInit {
   influenza: String = '';
   constructor(private authService: AuthenticationService, private sympService: SymptomcheckerService) {
       this.results = false;
-    this.user = this.authService.getUser();
+      this.user = this.authService.getUser();
   }
 
   ngOnInit() {

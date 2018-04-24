@@ -8,6 +8,7 @@ import { RoleGuard } from './authentication/role.guard';
 import { RegisterComponent } from './register/register.component';
 import { DetailsComponent } from './user/details/details.component';
 import { ListComponent } from './user/list/list.component';
+import { EmergencyComponent } from './emergency/emergency.component';
 
 // 2018.03.30 - 12:34:17 - created app.routing for all routes in application
 
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'emergency', component: EmergencyComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: DetailsComponent, canActivate: [AuthGuard] },
     { path: 'patients', component: ListComponent, canActivate: [AuthGuard, RoleGuard] },

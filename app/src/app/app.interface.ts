@@ -21,13 +21,15 @@ export interface Motivation {
     author: User;
     patient: User;
     message: string;
+
 }
 
 export interface EmergencyAlert {
-    _id: string;
+    _id?: string;
     sender: User;
     receiver: User;
     message: string;
+    dateRecorded?: Date;
 }
 
 export interface VitalSigns {

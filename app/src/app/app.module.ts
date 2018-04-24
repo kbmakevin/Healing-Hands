@@ -17,6 +17,8 @@ import { UserModule } from './user/user.module';
 import { RoleGuard } from './authentication/role.guard';
 import { SymptomcheckerComponent } from './symptomchecker/symptomchecker.component';
 import { SymptomcheckerService } from './symptomchecker/symptomchecker.service';
+import { EmergencyComponent } from './emergency/emergency.component'; 
+import { EmergencyService } from './emergency/emergency.service';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { SymptomcheckerService } from './symptomchecker/symptomchecker.service';
     AlertComponent,
     RegisterComponent,
     SymptomcheckerComponent,
+    EmergencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { SymptomcheckerService } from './symptomchecker/symptomchecker.service';
     AuthGuard,
     AuthenticationService,
     AlertService,
-    SymptomcheckerService
+    SymptomcheckerService,
+    EmergencyService
   ],
   bootstrap: [AppComponent]
 })

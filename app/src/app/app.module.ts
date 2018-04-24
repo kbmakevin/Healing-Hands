@@ -14,6 +14,8 @@ import { PatientsModule } from './patients/patients.module';
 import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.component';
 import { UserService } from './user.service';
 import { EmergencyAlertsService } from './emergency-alerts/emergency-alerts.service';
+import { SymptomCheckerComponent } from './symptom-checker/symptom-checker.component';
+import { SymptomCheckerService } from './symptom-checker/symptom-checker.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { EmergencyAlertsService } from './emergency-alerts/emergency-alerts.serv
     HomeComponent,
     AlertComponent,
     EmergencyAlertsComponent,
+    SymptomCheckerComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { EmergencyAlertsService } from './emergency-alerts/emergency-alerts.serv
   providers: [
     AlertService,
     UserService,
-    EmergencyAlertsService
+    EmergencyAlertsService,
+    SymptomCheckerService
   ],
   bootstrap: [AppComponent]
 })

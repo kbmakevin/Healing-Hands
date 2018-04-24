@@ -8,6 +8,7 @@ import { PatientsDetailsComponent } from './patients/patients-details/patients-d
 import { PatientsListComponent } from './patients/patients-list/patients-list.component';
 import { PatientsMotivationsComponent } from './patients/patients-motivations/patients-motivations.component';
 import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.component';
+import { SymptomCheckerComponent } from './symptom-checker/symptom-checker.component';
 
 // 2018.03.30 - 12:34:17 - created app.routing for all routes in application
 
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     { path: 'patients', component: PatientsListComponent, canActivate: [AuthGuard, RoleGuard] },
     { path: 'motivation', component: PatientsMotivationsComponent, canActivate: [AuthGuard] },
     { path: 'emergency', component: EmergencyAlertsComponent, canActivate: [AuthGuard] },
+    { path: 'symptom-checker', component: SymptomCheckerComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'home' }
 ];
 

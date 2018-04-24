@@ -34,3 +34,8 @@ module.exports.GetUserDetails = function (req, res, next) {
             return res.status(200).json(user);
         });
 };
+
+// NURSE FUNCTIONS ++++++++++++++++++++++++++++++
+
+
+// PATIENT FUNCTIONS ++++++++++++++++++++++++++++

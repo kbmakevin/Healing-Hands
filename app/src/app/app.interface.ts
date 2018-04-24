@@ -17,21 +17,24 @@ export interface User {
 }
 
 export interface Motivation {
-    _id: string;
+    _id?: string;
     author: User;
     patient: User;
     message: string;
+    type: string;
+    dateRecorded?: Date;
 }
 
 export interface EmergencyAlert {
-    _id: string;
+    _id?: string;
     sender: User;
     receiver: User;
     message: string;
+    dateRecorded?: Date;
 }
 
 export interface VitalSigns {
-    _id: string;
+    _id?: string;
     // measured in degrees celsius
     bodyTemperature: Number;
     // measured in bpm, beats per minute
@@ -46,5 +49,5 @@ export interface VitalSigns {
     comments: String;
     patient: User;
     recorder: User;
-    time: Date;
+    dateRecorded?: Date;
 }

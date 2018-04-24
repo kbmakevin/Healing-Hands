@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { AlertService } from '../../alert/alert.service';
-import { UserService } from '../user.service';
+import { UserService } from '../../user.service';
 import { User } from '../../app.interface';
-
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'app-patients-list',
+  templateUrl: './patients-list.component.html',
+  styleUrls: ['./patients-list.component.css']
 })
-export class ListComponent implements OnInit {
+export class PatientsListComponent implements OnInit {
 
   patients: User[];
   constructor(

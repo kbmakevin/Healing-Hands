@@ -4,37 +4,31 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AuthenticationService } from './authentication/authentication.service';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert/alert.service';
 import { routing } from '../app/app.routing';
-import { AuthGuard } from './authentication/auth.guard';
-import { RegisterComponent } from './register/register.component';
-import { UserModule } from './user/user.module';
-import { RoleGuard } from './authentication/role.guard';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { PatientsModule } from './patients/patients.module';
+import { EmergencyAlertsComponent } from './emergency-alerts/emergency-alerts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     AlertComponent,
-    RegisterComponent,
+    EmergencyAlertsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    UserModule,
+    AuthenticationModule,
+    PatientsModule,
     routing
   ],
   providers: [
-    RoleGuard,
-    AuthGuard,
-    AuthenticationService,
     AlertService
   ],
   bootstrap: [AppComponent]

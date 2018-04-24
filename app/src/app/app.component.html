@@ -50,7 +50,7 @@
             <a routerLink="/login">Sign in</a>
         </li>
         <li *ngIf="authService.isLoggedIn()">
-            <a routerLink="/profile">{{ authService.getUser()?.type }} - {{ authService.getUser()?.name }}</a>
+            <a routerLink="/profile" [queryParams]="{id: authService.getUser()._id}">{{ authService.getUser()?.type }} - {{ authService.getUser()?.name }}</a>
         </li>
         <li *ngIf="authService.isLoggedIn()">
             <a (click)="authService.logout()">Logout</a>

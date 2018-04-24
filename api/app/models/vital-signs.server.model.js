@@ -27,7 +27,7 @@ const vitalSignsSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
-    time: { type: Date, default: Date.now }
+    dateRecorded: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('VitalSigns', vitalSignsSchema);
